@@ -120,3 +120,15 @@ export async function updateIcon(
 export async function deleteIcon(id: number): Promise<void> {
   await sql`DELETE FROM icons WHERE id = ${id}`;
 }
+
+export async function getPresetById(id: number): Promise<Preset | null> {
+  await initDb();
+  const result = await sql`SELECT * FROM presets WHERE id = ${id}`;
+  return result[0] as Preset || null;
+}
+
+export async function getIconById(id: number): Promise<Icon | null> {
+  await initDb();
+  const result = await sql`SELECT * FROM icons WHERE id = ${id}`;
+  return result[0] as Icon || null;
+}
