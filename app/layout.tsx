@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { Navbar } from "./header";
+import { TransitionSound } from "./TransitionSound";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default function RootLayout({
           />
         </head>
         <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
+          <TransitionSound />
           <Navbar />
           <main className="flex-1">{children}</main>
         </body>
