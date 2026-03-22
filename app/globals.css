@@ -5,6 +5,11 @@
   --foreground: #171717;
 }
 
+.dark {
+  --background: #020617;
+  --foreground: #f8fafc;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,8 +17,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@variant dark (&:where(.dark, .dark *));
+
 html {
-  color-scheme: light !important;
+  color-scheme: light dark;
 }
 
 body {
@@ -22,23 +29,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Force light mode - disable dark mode completely */
-.dark,
-[data-theme="dark"],
-[data-mode="dark"] {
-  display: none !important;
-}
-
-/* Ensure all text is visible on light background */
-* {
-  color-scheme: light !important;
-}
-
-/* Force all inputs and textareas to have dark text */
+/* Ensure all inputs and textareas have proper colors */
 input, textarea, select {
-  color: #0f172a !important;
+  color: inherit !important;
 }
 
 input::placeholder, textarea::placeholder {
-  color: #64748b !important;
+  color: #64748b;
+}
+
+.dark input::placeholder, .dark textarea::placeholder {
+  color: #94a3b8;
 }

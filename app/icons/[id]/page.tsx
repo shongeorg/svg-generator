@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
-import { 
-  ChevronRight, 
-  Download, 
-  Edit3, 
+import {
+  ChevronRight,
+  Download,
+  Edit3,
   Folder,
   Home,
   Trash2,
@@ -33,7 +33,7 @@ interface Preset {
 export default function IconPage() {
   const params = useParams();
   const iconId = parseInt(params.id as string);
-  
+
   const [icon, setIcon] = useState<Icon | null>(null);
   const [preset, setPreset] = useState<Preset | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +93,7 @@ export default function IconPage() {
           }
         })
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         setIcon(data.icon);
@@ -106,7 +106,7 @@ export default function IconPage() {
 
   const deleteIcon = async () => {
     if (!confirm('Ви впевнені що хочете видалити цю іконку?')) return;
-    
+
     try {
       await fetch(`/api/icons?id=${iconId}`, { method: 'DELETE' });
       window.location.href = preset ? `/presets/${preset.id}` : '/';
@@ -117,7 +117,7 @@ export default function IconPage() {
 
   const downloadSVG = () => {
     if (!icon) return;
-    
+
     let finalSvg = isEditing ? editedSvg : icon.svg_code;
     finalSvg = finalSvg.replace(/<svg/, `<svg width="${width}" height="${height}"`);
     finalSvg = finalSvg.replace(/currentColor/g, color);
@@ -127,7 +127,7 @@ export default function IconPage() {
 
     const svgBlob = new Blob([finalSvg], { type: 'image/svg+xml;charset=utf-8' });
     const svgUrl = URL.createObjectURL(svgBlob);
-    
+
     const downloadLink = document.createElement('a');
     downloadLink.href = svgUrl;
     downloadLink.download = `${icon.name}_${width}x${height}.svg`;
@@ -141,7 +141,7 @@ export default function IconPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
@@ -163,23 +163,23 @@ export default function IconPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-8">
       {/* Breadcrumb Navigation */}
-      <nav className="flex items-center gap-2 text-sm text-slate-500 mb-4">
-        <Link href="/" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
+      <nav className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-4">
+        <Link href="/" className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           <Home className="w-4 h-4" />
           Головна
         </Link>
         <ChevronRight className="w-4 h-4" />
-        <Link 
+        <Link
           href={`/presets/${preset.id}`}
-          className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+          className="flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
         >
           <Folder className="w-4 h-4" />
           {preset.name}
         </Link>
         <ChevronRight className="w-4 h-4" />
-        <span className="text-slate-900 font-medium">{icon.name}</span>
+        <span className="text-slate-900 dark:text-white font-medium">{icon.name}</span>
       </nav>
 
       <header className="mb-8 flex items-center justify-between">
@@ -204,16 +204,16 @@ export default function IconPage() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Preview */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-            <h1 className="text-2xl font-bold text-slate-900 mb-2">{icon.name}</h1>
-            <p className="text-slate-500 mb-6">
-              в папці <Link href={`/presets/${preset.id}`} className="text-blue-600 hover:underline flex items-center gap-1 inline-flex"><Folder className="w-4 h-4"/> {preset.name}</Link>
+          <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{icon.name}</h1>
+            <p className="text-slate-500 dark:text-slate-400 mb-6">
+              в папці <Link href={`/presets/${preset.id}`} className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 inline-flex"><Folder className="w-4 h-4"/> {preset.name}</Link>
             </p>
-            
-            <div className="flex items-center justify-center bg-slate-50 rounded-xl min-h-[300px] border border-dashed border-slate-300 relative overflow-hidden mb-6">
-              <div className="absolute inset-0 opacity-[0.03]" style={{ 
-                backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', 
-                backgroundSize: '20px 20px' 
+
+            <div className="flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl min-h-[300px] border border-dashed border-slate-300 dark:border-slate-700 relative overflow-hidden mb-6">
+              <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style={{
+                backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
+                backgroundSize: '20px 20px'
               }}></div>
               <div className="transition-all duration-200">
                 {renderSvg(isEditing ? editedSvg : icon.svg_code)}
@@ -231,77 +231,74 @@ export default function IconPage() {
           {/* Settings & Editor */}
           <div className="space-y-6">
             {isEditing && (
-              <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4" style={{ color: '#0f172a' }}>Назва</h3>
+              <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Назва</h3>
                 <input
                   type="text"
                   value={editedName}
                   onChange={(e) => setEditedName(e.target.value)}
-                  className="w-full px-4 py-3 border border-slate-200 bg-white rounded-xl focus:ring-2 focus:ring-green-500 outline-none mb-4"
-                  style={{ color: '#0f172a' }}
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-green-500 outline-none mb-4"
                 />
-                <h3 className="text-lg font-semibold mb-4" style={{ color: '#0f172a' }}>SVG Код</h3>
+                <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">SVG Код</h3>
                 <textarea
                   value={editedSvg}
                   onChange={(e) => setEditedSvg(e.target.value)}
-                  className="w-full h-48 p-4 border border-slate-200 bg-white rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none font-mono text-sm"
-                  style={{ color: '#334155' }}
+                  className="w-full h-48 p-4 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none font-mono text-sm"
                 />
               </div>
             )}
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-              <h3 className="text-lg font-semibold mb-4" style={{ color: '#0f172a' }}>Налаштування</h3>
-              
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+              <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Налаштування</h3>
+
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-bold text-slate-700 uppercase">Ширина</label>
-                    <input 
-                      type="range" min="16" max="512" value={width} 
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Ширина</label>
+                    <input
+                      type="range" min="16" max="512" value={width}
                       onChange={(e) => setWidth(parseInt(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                      className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                     />
-                    <span className="text-sm font-mono text-blue-600">{width}px</span>
+                    <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{width}px</span>
                   </div>
                   <div>
-                    <label className="text-sm font-bold text-slate-700 uppercase">Висота</label>
-                    <input 
-                      type="range" min="16" max="512" value={height} 
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Висота</label>
+                    <input
+                      type="range" min="16" max="512" value={height}
                       onChange={(e) => setHeight(parseInt(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                      className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                     />
-                    <span className="text-sm font-mono text-blue-600">{height}px</span>
+                    <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{height}px</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-bold text-slate-700 uppercase block mb-2">Колір</label>
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase block mb-2">Колір</label>
                     <div className="flex gap-2">
-                      <div className="relative w-10 h-10 rounded-lg border border-slate-200 overflow-hidden">
-                        <input 
-                          type="color" value={color} 
+                      <div className="relative w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                        <input
+                          type="color" value={color}
                           onChange={(e) => setColor(e.target.value)}
                           className="absolute inset-[-10px] w-[200%] h-[200%] cursor-pointer"
                         />
                       </div>
-                      <input 
-                        type="text" value={color} 
+                      <input
+                        type="text" value={color}
                         onChange={(e) => setColor(e.target.value)}
-                        className="flex-1 text-sm p-2 bg-slate-50 border border-slate-200 rounded-lg font-mono uppercase"
-                        style={{ color: '#0f172a' }}
+                        className="flex-1 text-sm p-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-mono uppercase text-slate-900 dark:text-white"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-bold text-slate-700 uppercase">Товщина</label>
-                    <input 
-                      type="range" min="0.5" max="4" step="0.5" value={strokeWidth} 
+                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Товщина</label>
+                    <input
+                      type="range" min="0.5" max="4" step="0.5" value={strokeWidth}
                       onChange={(e) => setStrokeWidth(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                      className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                     />
-                    <span className="text-sm font-mono text-blue-600">{strokeWidth}</span>
+                    <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{strokeWidth}</span>
                   </div>
                 </div>
               </div>

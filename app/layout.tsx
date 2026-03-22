@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { Folder, Wand2 } from "lucide-react";
+import { Navbar } from "./header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,28 +18,6 @@ export const metadata: Metadata = {
   description: "Generate SVG icons with AI",
 };
 
-function Navbar() {
-  return (
-    <nav className="bg-white border-b border-slate-200 px-8 py-3">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-slate-900 font-bold text-lg hover:text-blue-600 transition-colors">
-          <Wand2 className="w-6 h-6 text-purple-600" />
-          AI SVG Generator
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link 
-            href="/" 
-            className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors px-3 py-2 rounded-lg hover:bg-slate-50"
-          >
-            <Folder className="w-4 h-4" />
-            Пресети
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -52,7 +29,22 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900" style={{ color: '#0f172a' }}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && prefersDark)) {
+                  document.documentElement.classList.add('dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
         <Navbar />
         <main className="flex-1">{children}</main>
       </body>

@@ -22,7 +22,7 @@ import {
 // Loading fallback for Suspense
 function HomeLoading() {
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
       <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
     </div>
   );
@@ -355,19 +355,19 @@ function HomeContent() {
   // Presets List View
   if (view === 'presets') {
     return (
-      <div className="min-h-screen bg-slate-50 p-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-8">
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-            <Folder className="w-8 h-8 text-blue-600" />
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <Folder className="w-8 h-8 text-blue-600 dark:text-blue-400" />
             Мої Пресети
           </h1>
-          <p className="text-slate-500 mt-2">Створюйте папки для зберігання SVG іконок</p>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">Створюйте папки для зберігання SVG іконок</p>
         </header>
 
         {/* Create Preset Form */}
-        <div className="mb-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 max-w-md">
-          <h3 className="text-lg font-semibold mb-4" style={{ color: '#0f172a' }}>Створити нову папку</h3>
-          <form 
+        <div className="mb-8 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 max-w-md">
+          <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Створити нову папку</h3>
+          <form
             onSubmit={(e) => {
               e.preventDefault();
               const input = e.currentTarget.elements.namedItem('presetName') as HTMLInputElement;
@@ -382,8 +382,7 @@ function HomeContent() {
               name="presetName"
               type="text"
               placeholder="Назва папки (наприклад: Кафе)..."
-              className="flex-1 px-4 py-3 border border-slate-200 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
-              style={{ color: '#0f172a' }}
+              className="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
             />
             <button
               type="submit"
@@ -400,7 +399,7 @@ function HomeContent() {
             <Loader2 className="w-8 h-8 animate-spin text-slate-400" />
           </div>
         ) : presets.length === 0 ? (
-          <div className="text-center py-12 text-slate-400">
+          <div className="text-center py-12 text-slate-400 dark:text-slate-500">
             <Folder className="w-16 h-16 mx-auto mb-4 opacity-50" />
             <p className="text-lg">Немає папок. Створіть першу!</p>
           </div>
@@ -410,23 +409,23 @@ function HomeContent() {
               <Link
                 key={preset.id}
                 href={`/presets/${preset.id}`}
-                className="group bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-all"
+                className="group bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <Folder className="w-12 h-12 text-blue-500" />
-                  <button 
+                  <Folder className="w-12 h-12 text-blue-500 dark:text-blue-400" />
+                  <button
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       deletePreset(preset.id);
                     }}
-                    className="opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all"
+                    className="opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 p-2 rounded-lg transition-all"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
-                <h3 className="font-semibold text-lg text-slate-900">{preset.name}</h3>
-                <p className="text-sm text-slate-500 mt-1">
+                <h3 className="font-semibold text-lg text-slate-900 dark:text-white">{preset.name}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
                   {new Date(preset.created_at).toLocaleDateString()}
                 </p>
               </Link>
@@ -440,21 +439,21 @@ function HomeContent() {
   // Icons Grid View
   if (view === 'icons' && selectedPreset) {
     return (
-      <div className="min-h-screen bg-slate-50 p-8">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-8">
         <header className="mb-8 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => setView('presets')}
-              className="flex items-center gap-2 text-slate-500 hover:text-slate-700 transition-colors"
+              className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" /> Назад
             </button>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                <Folder className="w-8 h-8 text-blue-600" />
+              <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                <Folder className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 {selectedPreset.name}
               </h1>
-              <p className="text-slate-500 mt-1">Іконки в цій папці</p>
+              <p className="text-slate-500 dark:text-slate-400 mt-1">Іконки в цій папці</p>
             </div>
           </div>
           <button
@@ -466,7 +465,7 @@ function HomeContent() {
         </header>
 
         {icons.length === 0 ? (
-          <div className="text-center py-16 text-slate-400 bg-white rounded-2xl border border-dashed border-slate-300">
+          <div className="text-center py-16 text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
             <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-50" />
             <p className="text-lg mb-4">В цій папці ще немає іконок</p>
             <button
@@ -479,31 +478,31 @@ function HomeContent() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {icons.map(icon => (
-              <div 
-                key={icon.id} 
-                className="group bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-all"
+              <div
+                key={icon.id}
+                className="group bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all"
               >
-                <div className="aspect-square bg-slate-50 rounded-xl flex items-center justify-center mb-4 border border-slate-100">
+                <div className="aspect-square bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 border border-slate-100 dark:border-slate-700">
                   {renderSvg(icon.svg_code, 64, 64, icon.color, icon.stroke_width)}
                 </div>
-                <h4 className="font-medium text-slate-900 truncate">{icon.name}</h4>
-                <p className="text-xs text-slate-500">{icon.width}x{icon.height}</p>
+                <h4 className="font-medium text-slate-900 dark:text-white truncate">{icon.name}</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{icon.width}x{icon.height}</p>
                 <div className="flex gap-2 mt-3">
                   <button
                     onClick={() => openEditIcon(icon)}
-                    className="flex-1 flex items-center justify-center gap-1 bg-green-50 text-green-600 py-2 rounded-lg hover:bg-green-100 transition-colors text-sm"
+                    className="flex-1 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 py-2 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm"
                   >
                     <Edit3 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => downloadSVG(icon.svg_code, icon.name, icon.width, icon.height, icon.color, icon.stroke_width)}
-                    className="flex-1 flex items-center justify-center gap-1 bg-blue-50 text-blue-600 py-2 rounded-lg hover:bg-blue-100 transition-colors text-sm"
+                    className="flex-1 flex items-center justify-center gap-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 py-2 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors text-sm"
                   >
                     <Download className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => deleteIcon(icon.id)}
-                    className="flex items-center justify-center gap-1 bg-red-50 text-red-600 py-2 px-3 rounded-lg hover:bg-red-100 transition-colors text-sm"
+                    className="flex items-center justify-center gap-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 py-2 px-3 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors text-sm"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -519,19 +518,19 @@ function HomeContent() {
   // Generator View
   if (view === 'generator' && selectedPreset) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         {/* Header */}
-        <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => setView('icons')}
-              className="flex items-center gap-2 text-slate-500 hover:text-slate-700 transition-colors"
+              className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" /> Назад до "{selectedPreset.name}"
             </button>
           </div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-            <Wand2 className="w-6 h-6 text-purple-600" />
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <Wand2 className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             AI Генератор
           </h1>
           <div className="w-32"></div>
@@ -542,20 +541,20 @@ function HomeContent() {
             {/* Left: Prompt & Editor */}
             <div className="space-y-6">
               {/* Prompt Section */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                   <Sparkles className="w-5 h-5 text-purple-500" /> Опис іконки
                 </h3>
                 <textarea
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Наприклад: червоне серце зі стрілою, мінімалістичний стиль..."
-                  className="w-full h-32 p-4 border border-slate-200 rounded-xl resize-none focus:ring-2 focus:ring-purple-500 outline-none text-slate-700"
+                  className="w-full h-32 p-4 border border-slate-200 dark:border-slate-700 rounded-xl resize-none focus:ring-2 focus:ring-purple-500 outline-none text-slate-900 dark:text-white bg-white dark:bg-slate-800"
                 />
                 <button
                   onClick={generateSvg}
                   disabled={isGenerating || !prompt.trim()}
-                  className="w-full mt-4 flex items-center justify-center gap-2 bg-purple-600 text-white p-4 rounded-xl hover:bg-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg shadow-purple-200"
+                  className="w-full mt-4 flex items-center justify-center gap-2 bg-purple-600 text-white p-4 rounded-xl hover:bg-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg shadow-purple-200 dark:shadow-purple-900/20"
                 >
                   {isGenerating ? (
                     <><Loader2 className="w-5 h-5 animate-spin" /> Генерація...</>
@@ -566,8 +565,8 @@ function HomeContent() {
               </section>
 
               {/* Pre-made Icon Library */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                   <ImageIcon className="w-5 h-5 text-purple-500" /> Готова іконка
                 </h3>
                 <select
@@ -579,39 +578,39 @@ function HomeContent() {
                       setGeneratedSvg(selected.svg);
                     }
                   }}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none bg-white"
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 >
                   <option value="">Оберіть готову іконку...</option>
                   {ICON_LIBRARY.map(icon => (
                     <option key={icon.name} value={icon.name}>{icon.label}</option>
                   ))}
                 </select>
-                <p className="text-sm text-slate-500 mt-2">
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                   Або введіть опис і згенеруйте нову іконку
                 </p>
               </section>
 
               {/* SVG Editor */}
               {generatedSvg && (
-                <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold flex items-center gap-2">
+                    <h3 className="text-lg font-semibold flex items-center gap-2 text-slate-900 dark:text-white">
                       <Code className="w-5 h-5 text-blue-500" /> Редактор SVG
                     </h3>
                     <button
                       onClick={() => setShowEditor(!showEditor)}
-                      className="flex items-center gap-2 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                      className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
                     >
                       <Edit3 className="w-4 h-4" />
                       {showEditor ? 'Сховати редактор' : 'Редагувати код'}
                     </button>
                   </div>
-                  
+
                   {showEditor && (
                     <textarea
                       value={editedSvg}
                       onChange={(e) => setEditedSvg(e.target.value)}
-                      className="w-full h-48 p-4 border border-slate-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none text-slate-700 font-mono text-sm"
+                      className="w-full h-48 p-4 border border-slate-200 dark:border-slate-700 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-mono text-sm bg-white dark:bg-slate-800"
                     />
                   )}
                 </section>
@@ -621,25 +620,25 @@ function HomeContent() {
             {/* Right: Preview & Settings */}
             <div className="space-y-6">
               {/* Preview */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold">Попередній перегляд</h3>
-                  <span className="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full text-slate-600">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Попередній перегляд</h3>
+                  <span className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-slate-600 dark:text-slate-300">
                     {width} x {height} px
                   </span>
                 </div>
-                
-                <div className="flex items-center justify-center bg-slate-50 rounded-xl min-h-[250px] border border-dashed border-slate-300 relative overflow-hidden mb-6">
-                  <div className="absolute inset-0 opacity-[0.03]" style={{ 
-                    backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', 
-                    backgroundSize: '20px 20px' 
+
+                <div className="flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl min-h-[250px] border border-dashed border-slate-300 dark:border-slate-700 relative overflow-hidden mb-6">
+                  <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style={{
+                    backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
+                    backgroundSize: '20px 20px'
                   }}></div>
                   {generatedSvg ? (
                     <div className="transition-all duration-200">
                       {renderSvg(showEditor ? editedSvg : generatedSvg, width, height, color, strokeWidth)}
                     </div>
                   ) : (
-                    <div className="text-slate-400 text-center">
+                    <div className="text-slate-400 dark:text-slate-500 text-center">
                       <Wand2 className="w-12 h-12 mx-auto mb-2 opacity-50" />
                       <p>SVG з'явиться тут</p>
                     </div>
@@ -650,51 +649,51 @@ function HomeContent() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Ширина</label>
-                      <input 
-                        type="range" min="16" max="512" value={width} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Ширина</label>
+                      <input
+                        type="range" min="16" max="512" value={width}
                         onChange={(e) => setWidth(parseInt(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{width}px</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{width}px</span>
                     </div>
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Висота</label>
-                      <input 
-                        type="range" min="16" max="512" value={height} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Висота</label>
+                      <input
+                        type="range" min="16" max="512" value={height}
                         onChange={(e) => setHeight(parseInt(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{height}px</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{height}px</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase block mb-2">Колір</label>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase block mb-2">Колір</label>
                       <div className="flex gap-2">
-                        <div className="relative w-10 h-10 rounded-lg border border-slate-200 overflow-hidden">
-                          <input 
-                            type="color" value={color} 
+                        <div className="relative w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                          <input
+                            type="color" value={color}
                             onChange={(e) => setColor(e.target.value)}
                             className="absolute inset-[-10px] w-[200%] h-[200%] cursor-pointer"
                           />
                         </div>
-                        <input 
-                          type="text" value={color} 
+                        <input
+                          type="text" value={color}
                           onChange={(e) => setColor(e.target.value)}
-                          className="flex-1 text-sm p-2 bg-slate-50 border border-slate-200 rounded-lg font-mono uppercase"
+                          className="flex-1 text-sm p-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-mono uppercase text-slate-900 dark:text-white"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Товщина</label>
-                      <input 
-                        type="range" min="0.5" max="4" step="0.5" value={strokeWidth} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Товщина</label>
+                      <input
+                        type="range" min="0.5" max="4" step="0.5" value={strokeWidth}
                         onChange={(e) => setStrokeWidth(parseFloat(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{strokeWidth}</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{strokeWidth}</span>
                     </div>
                   </div>
                 </div>
@@ -702,8 +701,8 @@ function HomeContent() {
 
               {/* Save Section */}
               {generatedSvg && (
-                <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                     <Save className="w-5 h-5 text-green-500" /> Зберегти в "{selectedPreset.name}"
                   </h3>
                   <input
@@ -711,7 +710,7 @@ function HomeContent() {
                     placeholder="Назва іконки..."
                     value={iconName}
                     onChange={(e) => setIconName(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl mb-4 focus:ring-2 focus:ring-green-500 outline-none"
+                    className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl mb-4 focus:ring-2 focus:ring-green-500 outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   />
                   <div className="flex gap-3">
                     <button
@@ -740,23 +739,23 @@ function HomeContent() {
   // Icon Editor View
   if (view === 'editor' && editingIcon && selectedPreset) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
         {/* Header */}
-        <header className="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
+        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => {
                 setView('icons');
                 setEditingIcon(null);
                 setIconName('');
                 setEditedSvg('');
               }}
-              className="flex items-center gap-2 text-slate-500 hover:text-slate-700 transition-colors"
+              className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" /> Назад до "{selectedPreset.name}"
             </button>
           </div>
-          <h1 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <Edit3 className="w-6 h-6 text-green-600" />
             Редагування іконки
           </h1>
@@ -768,19 +767,19 @@ function HomeContent() {
             {/* Left: Name & SVG Editor */}
             <div className="space-y-6">
               {/* Name Input */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4">Назва іконки</h3>
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 text-slate-900 dark:text-white">Назва іконки</h3>
                 <input
                   type="text"
                   value={iconName}
                   onChange={(e) => setIconName(e.target.value)}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-green-500 outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 />
               </section>
 
               {/* Icon Library Select */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                   <ImageIcon className="w-5 h-5 text-purple-500" /> Готова іконка
                 </h3>
                 <select
@@ -791,27 +790,27 @@ function HomeContent() {
                       setIconName(selected.name);
                     }
                   }}
-                  className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none bg-white"
+                  className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                 >
                   <option value="">Оберіть готову іконку...</option>
                   {ICON_LIBRARY.map(icon => (
                     <option key={icon.name} value={icon.name}>{icon.label}</option>
                   ))}
                 </select>
-                <p className="text-sm text-slate-500 mt-2">
+                <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
                   Або редагуйте SVG код вручну нижче
                 </p>
               </section>
 
               {/* SVG Editor */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                   <Code className="w-5 h-5 text-blue-500" /> Редактор SVG
                 </h3>
                 <textarea
                   value={editedSvg}
                   onChange={(e) => setEditedSvg(e.target.value)}
-                  className="w-full h-64 p-4 border border-slate-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none text-slate-700 font-mono text-sm"
+                  className="w-full h-64 p-4 border border-slate-200 dark:border-slate-700 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white font-mono text-sm bg-white dark:bg-slate-800"
                 />
               </section>
             </div>
@@ -819,18 +818,18 @@ function HomeContent() {
             {/* Right: Preview & Settings */}
             <div className="space-y-6">
               {/* Preview */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-semibold">Попередній перегляд</h3>
-                  <span className="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full text-slate-600">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Попередній перегляд</h3>
+                  <span className="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-slate-600 dark:text-slate-300">
                     {width} x {height} px
                   </span>
                 </div>
-                
-                <div className="flex items-center justify-center bg-slate-50 rounded-xl min-h-[250px] border border-dashed border-slate-300 relative overflow-hidden mb-6">
-                  <div className="absolute inset-0 opacity-[0.03]" style={{ 
-                    backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', 
-                    backgroundSize: '20px 20px' 
+
+                <div className="flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl min-h-[250px] border border-dashed border-slate-300 dark:border-slate-700 relative overflow-hidden mb-6">
+                  <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style={{
+                    backgroundImage: 'radial-gradient(#000 1px, transparent 1px)',
+                    backgroundSize: '20px 20px'
                   }}></div>
                   <div className="transition-all duration-200">
                     {renderSvg(editedSvg, width, height, color, strokeWidth)}
@@ -841,59 +840,59 @@ function HomeContent() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Ширина</label>
-                      <input 
-                        type="range" min="16" max="512" value={width} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Ширина</label>
+                      <input
+                        type="range" min="16" max="512" value={width}
                         onChange={(e) => setWidth(parseInt(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{width}px</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{width}px</span>
                     </div>
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Висота</label>
-                      <input 
-                        type="range" min="16" max="512" value={height} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Висота</label>
+                      <input
+                        type="range" min="16" max="512" value={height}
                         onChange={(e) => setHeight(parseInt(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{height}px</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{height}px</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase block mb-2">Колір</label>
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase block mb-2">Колір</label>
                       <div className="flex gap-2">
-                        <div className="relative w-10 h-10 rounded-lg border border-slate-200 overflow-hidden">
-                          <input 
-                            type="color" value={color} 
+                        <div className="relative w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                          <input
+                            type="color" value={color}
                             onChange={(e) => setColor(e.target.value)}
                             className="absolute inset-[-10px] w-[200%] h-[200%] cursor-pointer"
                           />
                         </div>
-                        <input 
-                          type="text" value={color} 
+                        <input
+                          type="text" value={color}
                           onChange={(e) => setColor(e.target.value)}
-                          className="flex-1 text-sm p-2 bg-slate-50 border border-slate-200 rounded-lg font-mono uppercase"
+                          className="flex-1 text-sm p-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg font-mono uppercase text-slate-900 dark:text-white"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="text-sm font-bold text-slate-700 uppercase">Товщина</label>
-                      <input 
-                        type="range" min="0.5" max="4" step="0.5" value={strokeWidth} 
+                      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase">Товщина</label>
+                      <input
+                        type="range" min="0.5" max="4" step="0.5" value={strokeWidth}
                         onChange={(e) => setStrokeWidth(parseFloat(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
+                        className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600 mt-2"
                       />
-                      <span className="text-sm font-mono text-blue-600">{strokeWidth}</span>
+                      <span className="text-sm font-mono text-blue-600 dark:text-blue-400">{strokeWidth}</span>
                     </div>
                   </div>
                 </div>
               </section>
 
               {/* Save Changes */}
-              <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+              <section className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
+                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2 text-slate-900 dark:text-white">
                   <Save className="w-5 h-5 text-green-500" /> Зберегти зміни
                 </h3>
                 <div className="flex gap-3">
