@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI SVG Generator
 
-## Getting Started
+Генератор SVG іконок з AI інтеграцією Groq та збереженням в Neon PostgreSQL.
 
-First, run the development server:
+**Live Demo:** https://svg-generator-ten.vercel.app
+
+## Функціонал
+
+- **AI Генерація** - Описуй іконку словами, Groq AI генерує SVG код
+- **Папки (Пресети)** - Організовуй іконки в папки (Кафе, Піцерія, тощо)
+- **Редактор SVG** - Правь згенерований код вручну
+- **Налаштування** - Змінюй розмір, колір, товщину ліній
+- **Завантаження** - Скачуй SVG файли
+
+## Технології
+
+- **Frontend:** Next.js 16.2.1, React 19, TypeScript, Tailwind CSS v4
+- **AI:** Groq API (llama-3.3-70b-versatile)
+- **Database:** Neon PostgreSQL
+- **Deployment:** Vercel
+
+## Локальний запуск
 
 ```bash
+# Встановлення залежностей
+npm install
+
+# Запуск dev сервера
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Відкрий http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Змінні оточення
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Створи `.env` файл:
 
-## Learn More
+```env
+GROQ_API_KEY=your_groq_api_key
+NEON_PG_DB_URL=your_neon_connection_string
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Структура проєкту
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+├── api/
+│   ├── generate-svg/    # AI генерація через Groq
+│   ├── icons/           # CRUD для іконок
+│   └── presets/         # CRUD для папок
+├── page.tsx             # Головний UI
+└── layout.tsx
+lib/
+└── db.ts                # Neon PostgreSQL конфігурація
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Як користуватися
 
-## Deploy on Vercel
+1. Створи папку (наприклад "Кафе")
+2. Відкрий папку і натисни "Додати іконку"
+3. Опиши іконку (наприклад "чашка кави")
+4. Натисни "Згенерувати SVG"
+5. При потребі відредагуй код вручну
+6. Збережи іконку в папку
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Примітки
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- AI іноді генерує діч, тому є ручний редактор 😂
+- Всі дані зберігаються в Neon PostgreSQL
+- Проєкт задеплоєний на Vercel
+
+---
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
