@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { useSearchParams } from 'next/navigation';
 import { 
   Download, 

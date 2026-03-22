@@ -1,6 +1,6 @@
 'use client';
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Folder, Moon, Sun, Wand2 } from "lucide-react";
 
 function ThemeToggle() {

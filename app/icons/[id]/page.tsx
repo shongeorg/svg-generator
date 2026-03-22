@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { notFound, useParams } from 'next/navigation';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import {
   ChevronRight,
   Download,

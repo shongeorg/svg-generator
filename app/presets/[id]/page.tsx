@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getPresetById, getIconsByPreset } from '@/lib/db';
 import { Folder, Home, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import ShareButton from '@/app/components/ShareButton';
 
 interface PageProps {
